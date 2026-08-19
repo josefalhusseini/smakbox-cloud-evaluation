@@ -7,6 +7,6 @@ Detta repository innehåller presentationsunderlag och kalkylunderlag för molnu
 - **`presentation.md`**: Textinnehåll och struktur för PowerPoint / Google Slides.
 - **`screenshots/`**: Alla 7 verifierade skärmdumpar från Azure Pricing Calculator och AWS Pricing Calculator.
 
-## 👥 Deltagare & Rollfördelning
+## Deltagare & Rollfördelning
 - **Josef Alhusseini**: Presentationsansvarig & Muntlig redovisning (`presentation.html`).
 - **Kevin Hermansson**: Kalkylansvarig & Skriftlig rapport.
