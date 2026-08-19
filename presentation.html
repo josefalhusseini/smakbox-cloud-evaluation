@@ -4,20 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Molnstrategi för Smakbox AB — Presentation</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
   <style>
     :root {
-      --bg-light: #f8fafc;
-      --bg-white: #ffffff;
-      --text-main: #0f172a;
-      --text-muted: #475569;
-      --accent-blue: #0284c7;
-      --accent-teal: #0d9488;
-      --accent-gray: #e2e8f0;
-      --font-sans: 'Inter', sans-serif;
+      --bg-color: #ffffff;
+      --text-main: #333333;
+      --text-muted: #666666;
+      --accent-blue: #0066cc;
+      --border-color: #dddddd;
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
     * {
@@ -27,564 +21,393 @@
     }
 
     body {
-      background-color: var(--bg-light);
+      background-color: #f3f3f3;
       color: var(--text-main);
-      font-family: var(--font-sans);
-      overflow: hidden;
+      font-family: var(--font-stack);
       height: 100vh;
       width: 100vw;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-    }
-
-    .progress-bar-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: var(--accent-gray);
-      z-index: 99;
-    }
-
-    .progress-bar {
-      height: 100%;
-      width: 16.66%;
-      background: var(--accent-blue);
-      transition: width 0.4s ease;
+      justify-content: center;
+      align-items: center;
     }
 
     .slides-viewport {
-      flex-grow: 1;
-      position: relative;
       width: 100%;
+      max-width: 960px;
+      height: 540px; /* 16:9 Aspect Ratio */
+      position: relative;
+      background: var(--bg-color);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3rem 4rem;
     }
 
     .slide {
-      position: absolute;
-      width: 90%;
-      max-width: 1100px;
-      height: 80%;
-      max-height: 650px;
-      opacity: 0;
-      visibility: hidden;
-      transform: scale(0.98) translateY(10px);
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      display: flex;
+      flex-grow: 1;
+      display: none;
       flex-direction: column;
-      justify-content: center;
-      z-index: 1;
-      padding: 4rem;
-      background: var(--bg-white);
-      border: 1px solid var(--accent-gray);
-      border-radius: 12px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.03);
+      justify-content: flex-start;
     }
 
     .slide.active {
-      opacity: 1;
-      visibility: visible;
-      transform: scale(1) translateY(0);
-      z-index: 10;
+      display: flex;
+    }
+
+    /* Title Slide Layout */
+    .slide-title-layout {
+      justify-content: center;
+      height: 100%;
     }
 
     h1 {
-      font-size: 3.5rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
+      font-size: 2.8rem;
+      font-weight: 700;
       color: var(--text-main);
-      margin-bottom: 1.5rem;
-    }
-
-    .title-large {
-      font-size: 4rem;
-      line-height: 1.05;
+      margin-bottom: 1rem;
+      line-height: 1.2;
     }
 
     h2 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 2rem;
-      color: var(--text-main);
-      position: relative;
-      padding-bottom: 0.75rem;
-    }
-
-    h2::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 60px;
-      height: 3px;
-      background-color: var(--accent-blue);
-    }
-
-    .accent-blue-text {
+      font-size: 2rem;
+      font-weight: 600;
       color: var(--accent-blue);
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid var(--accent-blue);
+      padding-bottom: 0.5rem;
     }
 
-    p, li {
+    .subtitle {
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+    }
+
+    .presenters {
+      font-size: 1.1rem;
+      color: var(--text-main);
+    }
+
+    .presenters strong {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* Bullet point layouts */
+    ul {
+      margin-left: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    li {
       font-size: 1.15rem;
       line-height: 1.6;
-      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      color: var(--text-main);
+    }
+
+    li strong {
+      color: #000000;
     }
 
     .grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: center;
+      gap: 2.5rem;
     }
 
-    .flex-col-gap {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .card {
-      background: var(--bg-light);
-      border: 1px solid var(--accent-gray);
-      border-radius: 8px;
-      padding: 1.5rem;
-      transition: all 0.2s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-    }
-
-    .card h3 {
-      font-weight: 600;
-      font-size: 1.25rem;
-      margin-bottom: 0.5rem;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .card p {
-      font-size: 1rem;
-    }
-
+    /* Pricing section styling */
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 1rem;
-      font-size: 1rem;
+      margin-top: 0.5rem;
     }
 
     th {
       font-weight: 600;
-      color: var(--text-main);
+      color: #000000;
       text-align: left;
-      padding: 0.85rem 1rem;
+      padding: 0.6rem 0.8rem;
       border-bottom: 2px solid var(--accent-blue);
+      font-size: 0.95rem;
     }
 
     td {
-      padding: 1rem;
-      border-bottom: 1px solid var(--accent-gray);
-      color: var(--text-muted);
-    }
-
-    tr:hover td {
-      color: var(--text-main);
-      background: var(--bg-light);
-    }
-
-    .nav-bar {
-      padding: 1.5rem 4rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--bg-white);
-      border-top: 1px solid var(--accent-gray);
-      z-index: 10;
-    }
-
-    .nav-logo {
-      font-weight: 800;
-      font-size: 1.25rem;
-      letter-spacing: -0.02em;
+      padding: 0.75rem 0.8rem;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 1rem;
       color: var(--text-main);
     }
 
-    .nav-logo span {
-      color: var(--accent-blue);
-    }
-
-    .nav-buttons {
-      display: flex;
-      gap: 1.5rem;
-      align-items: center;
-    }
-
-    .btn {
-      background: var(--bg-white);
-      border: 1px solid var(--accent-gray);
-      color: var(--text-muted);
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
-      font-weight: 500;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .btn:hover {
-      border-color: var(--accent-blue);
-      color: var(--accent-blue);
-      background: var(--bg-light);
-    }
-
-    .slide-indicator {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      background: var(--bg-light);
-      padding: 0.4rem 0.8rem;
-      border-radius: 4px;
-      border: 1px solid var(--accent-gray);
-    }
-
-    .pricing-grid {
+    .cost-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
+      gap: 2rem;
     }
 
-    .price-box {
-      border-radius: 8px;
-      padding: 2rem;
-      text-align: center;
-      border: 1px solid var(--accent-gray);
-      background: var(--bg-light);
+    .cost-column {
+      border: 1px solid var(--border-color);
+      background: #fafafa;
+      padding: 1.5rem;
+      border-radius: 4px;
     }
 
-    .price-box-azure {
-      border-top: 4px solid var(--accent-blue);
-    }
-
-    .price-box-aws {
-      border-top: 4px solid #ff9900;
-    }
-
-    .price-title {
-      font-size: 1.35rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: var(--text-main);
-    }
-
-    .price-value {
-      font-size: 3rem;
+    .cost-title {
+      font-size: 1.2rem;
       font-weight: 700;
       color: var(--text-main);
-      margin: 0.75rem 0;
-    }
-
-    .price-currency {
-      font-size: 1.5rem;
-      font-weight: 400;
-      color: var(--text-muted);
-    }
-
-    .price-items {
-      text-align: left;
-      margin-top: 1.5rem;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      list-style-type: none;
-    }
-
-    .price-items li {
-      font-size: 0.95rem;
       margin-bottom: 0.5rem;
+    }
+
+    .cost-value {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      margin-bottom: 1rem;
+    }
+
+    .cost-list {
+      list-style-type: none;
+      margin-left: 0;
+    }
+
+    .cost-list li {
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
       display: flex;
       justify-content: space-between;
-      border-bottom: 1px dashed var(--accent-gray);
-      padding-bottom: 0.25rem;
+      border-bottom: 1px dashed var(--border-color);
+      padding-bottom: 0.2rem;
     }
 
-    .badge-sweden {
-      background: #eff6ff;
-      color: var(--accent-blue);
-      border: 1px solid #bfdbfe;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      display: inline-block;
-      margin-top: 0.25rem;
+    /* Navigation / Footer bar inside slide view */
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border-color);
+      padding-top: 1rem;
+      margin-top: auto;
     }
 
-    .guide-box {
-      border-left: 3px solid var(--accent-teal);
-      background: var(--bg-light);
-      padding: 1rem;
-      border-radius: 0 6px 6px 0;
-      margin-top: 1.5rem;
-    }
-
-    .guide-box h4 {
-      font-size: 1.05rem;
-      margin-bottom: 0.25rem;
-      color: var(--text-main);
-    }
-
-    .guide-box p {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-    }
-
-    .keyboard-tip {
+    .slide-footer-left {
       font-size: 0.85rem;
       color: var(--text-muted);
     }
 
-    .keyboard-key {
-      background: var(--bg-white);
-      border: 1px solid var(--accent-gray);
-      padding: 0.1rem 0.3rem;
-      border-radius: 3px;
-      font-size: 0.8rem;
-      font-weight: 600;
+    .slide-footer-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
 
-    @media (max-width: 900px) {
-      .grid-2, .pricing-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-      .slide {
-        padding: 2rem;
-        height: auto;
-        max-height: initial;
-      }
-      h1 {
-        font-size: 2.2rem;
-      }
-      h2 {
-        font-size: 1.6rem;
-      }
-      p, li {
-        font-size: 1rem;
-      }
+    .btn {
+      background: var(--bg-color);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.4rem 1rem;
+      font-size: 0.9rem;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #f5f5f5;
+      border-color: #999999;
+    }
+
+    .page-number {
+      font-size: 0.85rem;
+      color: var(--text-muted);
     }
   </style>
 </head>
 <body>
-  
-  <div class="progress-bar-container">
-    <div class="progress-bar" id="progress"></div>
-  </div>
 
+  <!-- SLIDES VIEWPORT -->
   <div class="slides-viewport">
     
-    <div class="slide active" id="slide-1">
-      <h1 class="title-large">Molnstrategi för<br>Smakbox <span class="accent-blue-text">AB</span></h1>
-      <p style="font-size: 1.4rem; margin-top: 1.5rem; color: var(--text-muted); font-weight: 300;">
-        En utvärdering av Microsoft Azure vs AWS
-      </p>
-      <div style="margin-top: 4rem; display: flex; gap: 3rem;">
-        <div>
-          <div style="font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600; letter-spacing: 0.05em;">Presentation av</div>
-          <div style="font-size: 1.15rem; font-weight: 500;">Josef Alhusseini och Kevin Hermansson</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="slide" id="slide-2">
-      <h2>Målet och Utmaningarna</h2>
-      <div class="grid-2">
-        <div class="flex-col-gap">
-          <p>
-            Smakbox AB behöver en robust kundportal för sina 200 företagskunder. Verksamhetens belastningsmönster ställer särskilda krav på infrastrukturvalen.
-          </p>
-          <div class="card">
-            <h3>Fredagstoppen (Kl. 10 - 14)</h3>
-            <p>Hårdaste trafiken sker under ett fåtal timmar på fredagen. Systemet måste skala ut per automatik och ta ner resurser efteråt.</p>
-          </div>
-          <div class="card">
-            <h3>GDPR & Dataresidens</h3>
-            <p>All kund- och orderdata måste stanna inom EU-gränser. Driftsättning i Gävle eller Stockholm garanterar lokal lagring.</p>
-          </div>
-        </div>
-        <div class="flex-col-gap">
-          <div class="card">
-            <h3>Minimal Drift (PaaS)</h3>
-            <p>Inget eget ansvar för att patcha operativsystem, installera webbservrar eller konfigurera databaskluster.</p>
-          </div>
-          <div class="card">
-            <h3>Filer & Media (50 GB)</h3>
-            <p>Receptbilder (JPEG) och recepthäften (PDF) som kräver tillförlitlig och billig fillagring för slutanvändare.</p>
-          </div>
-          <div class="card" style="border-left: 3px solid var(--accent-blue);">
-            <h3>Budget: Max 500 € / månad</h3>
-            <p>Driftskostnaderna måste hållas nere och optimeras utifrån faktisk användning.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="slide" id="slide-3">
-      <h2>Föreslagen Azure-arkitektur</h2>
-      <p style="margin-top: -1rem; margin-bottom: 2rem;">Samtliga tjänster driftsätts i regionen <strong class="accent-blue-text">Sweden Central</strong> (Gävle/Sandviken).</p>
+    <!-- SLIDE 1: TITELSIDA -->
+    <div class="slide slide-title-layout active" id="slide-1">
+      <h1 style="font-size: 3.2rem;">Molnstrategi & Utvärdering</h1>
+      <p class="subtitle">Rekommendation av molnplattform för Smakbox AB kundportal</p>
       
-      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem;">
-        <div class="card">
-          <div style="color: var(--accent-blue); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; text-transform: uppercase;">Webbapplikation</div>
-          <h3>App Service</h3>
-          <span class="badge-sweden" style="background: #f0fdf4; color: #16a34a; border-color: #bbf7d0;">Standard S1 Plan</span>
-          <p style="margin-top: 1rem; font-size: 0.95rem;">Möjliggör <strong>Auto-scaling</strong>. Skalar ut till 3 instanser automatiskt under fredagstopparna och återgår till 1 instans efteråt.</p>
-        </div>
-
-        <div class="card">
-          <div style="color: var(--accent-blue); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; text-transform: uppercase;">Fillagring</div>
-          <h3>Blob Storage</h3>
-          <span class="badge-sweden" style="background: #f0fdf4; color: #16a34a; border-color: #bbf7d0;">Standard Hot, LRS</span>
-          <p style="margin-top: 1rem; font-size: 0.95rem;">Lagrar 50 GB PDF-häften och JPEG-receptbilder. Locally Redundant Storage (LRS) är kostnadsoptimerat och tillräckligt.</p>
-        </div>
-
-        <div class="card">
-          <div style="color: var(--accent-blue); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; text-transform: uppercase;">Databas</div>
-          <h3>Azure SQL Database</h3>
-          <span class="badge-sweden" style="background: #f0fdf4; color: #16a34a; border-color: #bbf7d0;">Serverless vCore</span>
-          <p style="margin-top: 1rem; font-size: 0.95rem;">Hanterar transaktioner. Skalar datorkraft (0.5–4 vCores) steglöst vid fredagstoppen. Pausar automatiskt under inaktiva timmar.</p>
-        </div>
-      </div>
-
-      <div class="guide-box">
-        <h4>Skalbarhetsmekanism:</h4>
-        <p>Autoskalning styrs via inbyggda CPU-mätare (Web) och serverlös resursallokering (DB) helt utan mänsklig inblandning eller driftsavbrott.</p>
+      <div class="presenters">
+        <strong>Presenteras av</strong>
+        Josef Alhusseini och Kevin Hermansson
       </div>
     </div>
 
+    <!-- SLIDE 2: UTMANINGEN & KRAVEN -->
+    <div class="slide" id="slide-2">
+      <h2>Smakbox AB — Krav & Utmaningar</h2>
+      <div class="grid-2">
+        <div>
+          <ul>
+            <li><strong>Hög belastning på fredagar (10:00–14:00):</strong> Kunderna lägger alla veckobeställningar under ett fåtal timmar. Systemet måste kunna skala upp automatiskt.</li>
+            <li><strong>Minimalt driftsansvar:</strong> Företaget saknar ett eget driftteam. Molnleverantören måste ansvara för operativsystem och serverunderhåll (PaaS-fokus).</li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li><strong>GDPR & Lagring:</strong> 50 GB lagring för receptbilder (JPEG) och recepthäften (PDF). All data måste sparas inom EU (helst Sverige).</li>
+            <li><strong>Budget:</strong> Driftskostnaderna får uppgå till maximalt 500 € per månad.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: AZURE ARKITEKTUR -->
+    <div class="slide" id="slide-3">
+      <h2>Rekommenderad Arkitektur i Azure</h2>
+      <div class="grid-2">
+        <div>
+          <ul>
+            <li><strong>Webbportal: App Service (Standard S1)</strong>
+              <ul>
+                <li>Hanterar driftsmiljön (PaaS) utan serverunderhåll.</li>
+                <li>Auto-scaling: Skalar ut till max 3 instanser under fredagstoppen.</li>
+              </ul>
+            </li>
+            <li><strong>Fillagring: Blob Storage (Standard Hot, LRS)</strong>
+              <ul>
+                <li>Kostnadsoptimerad lagring av receptbilder och PDF-filer.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li><strong>Databas: Azure SQL Database (Serverless vCore)</strong>
+              <ul>
+                <li>Skalar processorkraft (0.5–4 vCores) steglöst utifrån belastning.</li>
+                <li>Auto-pause: Pausas automatiskt under nätter/helger för att spara pengar.</li>
+              </ul>
+            </li>
+            <li><strong>Region: Sweden Central (Gävle/Sandviken)</strong>
+              <ul>
+                <li>All lagring sker på svensk mark, vilket uppfyller GDPR.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: AWS MOTSVARIGHETER -->
     <div class="slide" id="slide-4">
-      <h2>AWS Motsvarigheter</h2>
-      <p style="margin-top: -1rem; margin-bottom: 1.5rem;">Om Smakbox väljer AWS kan motsvarande lösning etableras i regionen <strong>eu-north-1 (Stockholm)</strong>:</p>
+      <h2>Motsvarande Tjänster i AWS</h2>
+      <p style="margin-bottom: 1rem; color: var(--text-muted);">Motsvarande uppsättning kan driftsättas i AWS-regionen eu-north-1 (Stockholm):</p>
       
       <table>
         <thead>
           <tr>
-            <th>Resurs / Roll</th>
+            <th>Behov</th>
             <th>Microsoft Azure</th>
             <th>Amazon Web Services (AWS)</th>
-            <th>Teknisk Kommentar</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>Webbapplikation</strong></td>
+            <td><strong>Webbapplikation (PaaS)</strong></td>
             <td>App Service (Standard S1)</td>
             <td>AWS Elastic Beanstalk (eller App Runner)</td>
-            <td>Driftsätter källkod direkt som PaaS. Handhar lastbalansering.</td>
           </tr>
           <tr>
-            <td><strong>Objektslagring</strong></td>
-            <td>Blob Storage (Hot LRS)</td>
-            <td>Amazon S3 Standard</td>
-            <td>Högpresterande filserverlösning. Likvärdig prestanda och pris.</td>
-          </tr>
-          <tr>
-            <td><strong>Relationsdatabas</strong></td>
-            <td>Azure SQL (Serverless)</td>
+            <td><strong>Relationell Databas</strong></td>
+            <td>Azure SQL (Serverless vCore)</td>
             <td>Amazon Aurora Serverless v2</td>
-            <td>Serverlös databasmotor som skalar resurserna dynamiskt.</td>
           </tr>
           <tr>
-            <td><strong>Automatisk Skalning</strong></td>
+            <td><strong>Objektslagring (Media)</strong></td>
+            <td>Blob Storage (Standard Hot LRS)</td>
+            <td>Amazon S3 Standard</td>
+          </tr>
+          <tr>
+            <td><strong>Automatisk skalning</strong></td>
             <td>Azure Autoscale</td>
             <td>AWS Auto Scaling</td>
-            <td>Skalar instanser baserat på tröskelvärden för CPU/minne.</td>
           </tr>
         </tbody>
       </table>
     </div>
 
+    <!-- SLIDE 5: KOSTNADSJÄMFÖRELSE -->
     <div class="slide" id="slide-5">
-      <h2>Månadskostnad</h2>
-      <p style="margin-top: -1rem; margin-bottom: 2rem;">Båda plattformarna uppfyller enkelt budgetkravet på under 500 € per månad.</p>
-      
-      <div class="pricing-grid">
-        <div class="price-box price-box-azure">
-          <div class="price-title">Microsoft Azure (Sweden Central)</div>
-          <div class="price-value">~150 <span class="price-currency">€</span></div>
-          <ul class="price-items">
-            <li><span>App Service Standard (S1):</span> <span>~67 €</span></li>
-            <li><span>Autoscale SQL Database:</span> <span>~76 €</span></li>
+      <h2>Månadskostnad: Azure vs AWS</h2>
+      <div class="cost-grid">
+        <div class="cost-column">
+          <div class="cost-title">Microsoft Azure (Sweden Central)</div>
+          <div class="cost-value">~150 €</div>
+          <ul class="cost-list">
+            <li><span>App Service (S1) + Skalning:</span> <span>~69 €</span></li>
+            <li><span>Azure SQL Serverless DB:</span> <span>~76 €</span></li>
             <li><span>Blob Storage (50 GB):</span> <span>~1 €</span></li>
-            <li><span>Data Transfer Out:</span> <span>~6 €</span></li>
+            <li><span>Dataöverföring:</span> <span>~4 €</span></li>
           </ul>
         </div>
 
-        <div class="price-box price-box-aws">
-          <div class="price-title">Amazon Web Services (Stockholm)</div>
-          <div class="price-value">~78 <span class="price-currency">€</span></div>
-          <ul class="price-items">
+        <div class="cost-column">
+          <div class="cost-title">AWS (Stockholm Region)</div>
+          <div class="cost-value">~78 €</div>
+          <ul class="cost-list">
             <li><span>Elastic Beanstalk (t3.medium + ALB):</span> <span>~43 €</span></li>
             <li><span>Aurora Serverless v2 DB:</span> <span>~26 €</span></li>
-            <li><span>Amazon S3 Storage (50 GB):</span> <span>~1 €</span></li>
-            <li><span>Data Transfer Out:</span> <span>~8 €</span></li>
+            <li><span>Amazon S3 lagring:</span> <span>~1 €</span></li>
+            <li><span>Dataöverföring:</span> <span><span>~8 €</span></span></li>
           </ul>
         </div>
       </div>
     </div>
 
+    <!-- SLIDE 6: SLUTSATS & REKOMMENDATION -->
     <div class="slide" id="slide-6">
       <h2>Slutsats & Rekommendation</h2>
       <div class="grid-2">
-        <div class="flex-col-gap">
-          <div class="card" style="border-left: 3px solid var(--accent-blue);">
-            <h3>Svensk Dataresidens (Gävle/Sandviken)</h3>
-            <p>Driftsättning i Sweden Central ger optimalt avtalsskydd och lagring på svensk mark, vilket bäst uppfyller GDPR för Smakbox och deras svenska företagskunder.</p>
-          </div>
-          <div class="card">
-            <h3>Serverlös Databasskalning</h3>
-            <p>Azure SQL Serverless inbyggda auto-paus minimerar overhead på ett sätt som är mer administrativt komplext att uppnå i AWS Aurora.</p>
-          </div>
+        <div>
+          <ul>
+            <li><strong>Val: Microsoft Azure</strong></li>
+            <li><strong>GDPR & Dataresidens:</strong> Datacentret i Gävle ger starkare garantier för lokal lagring i Sverige jämfört med AWS.</li>
+            <li><strong>Kostnadskontroll:</strong> Azure SQL Serverless kan pausa till 0 vCore, vilket matchar Smakbox helgstopp bättre än AWS Aurora.</li>
+          </ul>
         </div>
-        <div class="flex-col-gap">
-          <div class="card">
-            <h3>Driftsenkelhet för små team</h3>
-            <p>Azure Portal är mer sammanhållen för PaaS-tjänster. Smakbox sparar tid på att slippa hantera djup nätverksarkitektur (VPC/IAM) i AWS.</p>
-          </div>
-          <div class="card" style="border-left: 3px solid var(--text-main);">
-            <h3>Trade-off: Vendor Lock-in</h3>
-            <p>Genom att använda fullt hanterade PaaS-tjänster sparar Smakbox hundratals timmar i serverdrift, men bygger in sig i Azures ekosystem. Denna risk rekommenderas starkt framför manuell drift.</p>
-          </div>
+        <div>
+          <ul>
+            <li><strong>Strategisk Trade-off:</strong>
+              <ul>
+                <li>Genom att välja PaaS sparar Smakbox tid och slipper driftsansvar för servermiljön.</li>
+                <li>Nackdelen är en högre timkostnad och en viss *vendor lock-in* hos Microsoft. Detta bedöms dock vara ekonomiskt lönsamt för bolaget.</li>
+              </ul>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
 
-  </div>
-
-  <div class="nav-bar">
-    <div class="nav-logo"> <span></span></div>
-    
-    <div class="nav-buttons">
-      <button class="btn" id="prev-btn">Föregående</button>
-      <div class="slide-indicator" id="indicator">Slide 1 av 6</div>
-      <button class="btn" id="next-btn">Nästa</button>
+    <!-- GLOBAL SLIDE FOOTER -->
+    <div class="slide-footer">
+      <div class="slide-footer-left">Smakbox AB — Molnanalys 2026</div>
+      <div class="slide-footer-right">
+        <button class="btn" id="prev-btn">Föregående</button>
+        <span class="page-number" id="page-num">Sida 1 av 6</span>
+        <button class="btn" id="next-btn">Nästa</button>
+      </div>
     </div>
+
   </div>
 
   <script>
     const slides = document.querySelectorAll('.slide');
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
-    const indicator = document.getElementById('indicator');
-    const progressBar = document.getElementById('progress');
+    const prevBtns = document.querySelectorAll('#prev-btn');
+    const nextBtns = document.querySelectorAll('#next-btn');
+    const pageNums = document.querySelectorAll('#page-num');
     
     let currentSlideIndex = 0;
 
@@ -597,16 +420,19 @@
         }
       });
 
-      indicator.textContent = `Slide ${currentSlideIndex + 1} av ${slides.length}`;
-      
-      const progressPercent = ((currentSlideIndex + 1) / slides.length) * 100;
-      progressBar.style.width = `${progressPercent}%`;
+      pageNums.forEach(p => {
+        p.textContent = `Sida ${currentSlideIndex + 1} av ${slides.length}`;
+      });
 
-      prevBtn.disabled = currentSlideIndex === 0;
-      nextBtn.disabled = currentSlideIndex === slides.length - 1;
-      
-      prevBtn.style.opacity = currentSlideIndex === 0 ? '0.4' : '1';
-      nextBtn.style.opacity = currentSlideIndex === slides.length - 1 ? '0.4' : '1';
+      prevBtns.forEach(btn => {
+        btn.disabled = currentSlideIndex === 0;
+        btn.style.opacity = currentSlideIndex === 0 ? '0.5' : '1';
+      });
+
+      nextBtns.forEach(btn => {
+        btn.disabled = currentSlideIndex === slides.length - 1;
+        btn.style.opacity = currentSlideIndex === slides.length - 1 ? '0.5' : '1';
+      });
     }
 
     function nextSlide() {
@@ -623,8 +449,8 @@
       }
     }
 
-    nextBtn.addEventListener('click', nextSlide);
-    prevBtn.addEventListener('click', prevSlide);
+    nextBtns.forEach(btn => btn.addEventListener('click', nextSlide));
+    prevBtns.forEach(btn => btn.addEventListener('click', prevSlide));
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight' || e.key === ' ') {
