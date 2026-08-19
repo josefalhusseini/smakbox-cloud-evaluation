@@ -488,20 +488,19 @@
       <h2>Slutsats & Rekommendation — Varför Azure över AWS?</h2>
       <div class="grid-2">
         <div>
-          <h3 style="color: var(--accent-blue); font-size: 1.15rem; margin-bottom: 0.75rem;">🏆 Huvudrekommendation: Microsoft Azure (~170,62 €/mån)</h3>
+          <h3 style="color: var(--accent-blue); font-size: 1.15rem; margin-bottom: 0.75rem;">Huvudrekommendation: Microsoft Azure (~170,62 €/mån)</h3>
           <ul>
-            <li><strong>Minimalt driftsansvar (Ren PaaS):</strong> Eftersom Smakbox saknar eget IT-driftteam sköter Azure all nätverks- och serverhantering. Ingen manuell nätverksinfrastruktur behöver byggas.</li>
-            <li><strong>Äkta Serverless Auto-pause:</strong> Azure SQL pausas automatiskt ned till 0 kr i beräkningskostnad under nätter och helger när ingen använder portalen.</li>
-            <li><strong>Lägsta totalkostnad för verksamheten (TCO):</strong> Prisskillnaden på ~95 €/månad är försumbar då tidsvinsten i utveckling och förvaltning sparar betydligt mer pengar. 170 € utnyttjar endast 34% av budgetramen (500 €/mån).</li>
-            <li><strong>Svensk dataresidens:</strong> Sweden Central (Gävle/Sandviken) garanterar 100% lokal lagring i Sverige.</li>
+            <li><strong>Minimalt driftsansvar (Ren PaaS):</strong> Smakbox saknar ett eget IT-driftteam. Azure sköter all underliggande nätverks- och serverinfrastruktur så att Smakbox kan fokusera helt på sin applikationskod.</li>
+            <li><strong>Äkta Serverless Auto-pause:</strong> Azure SQL pausas automatiskt ned till 0 kr i beräkningskostnad under helger och nätter när inga beställningar görs.</li>
+            <li><strong>Lägsta totalkostnad för verksamheten (TCO):</strong> Prisskillnaden på ~95 €/månad övervägs av den sparade förvaltningstiden. Med 170 €/månad utnyttjas endast 34 % av budgetramen (500 €/månad).</li>
           </ul>
         </div>
         <div>
-          <h3 style="color: var(--text-muted); font-size: 1.15rem; margin-bottom: 0.75rem;">⚖️ Alternativt Spår: AWS (~75,80 €/mån)</h3>
+          <h3 style="color: var(--text-muted); font-size: 1.15rem; margin-bottom: 0.75rem;">Alternativt Spår: AWS (~75,80 €/mån)</h3>
           <ul>
-            <li><strong>Mer infrastrukturarbete:</strong> AWS är billigare på pappret, men kräver manuell konfiguration av Load Balancer (ALB), Auto Scaling Groups och VPC-nätverk.</li>
-            <li><strong>Ingen noll-paus på databasen:</strong> Amazon RDS PostgreSQL snurrar kontinuerligt 24/7/365 vilket ger en fast avgift även när portalen är helt oanvänd.</li>
-            <li><strong>Slutsats för Smakbox:</strong> Om Smakbox prioriterar lägsta faktura och har egen AWS-kompetens är AWS ett bra alternativ. För lägst driftbörda och snabbast utveckling är <strong>Microsoft Azure det bästa valet</strong>.</li>
+            <li><strong>Mer infrastrukturkonfiguration:</strong> AWS ger en lägre renodlad månadskostnad, men kräver manuell uppsättning och underhåll av Load Balancer (ALB), Auto Scaling Groups och VPC-nätverk.</li>
+            <li><strong>Kontinuerlig databas utan noll-paus:</strong> Amazon RDS PostgreSQL snurrar dygnet runt utan automatisk auto-pause vid inaktivitet.</li>
+            <li><strong>Lokal dataresidens:</strong> Båda plattformarna uppfyller GDPR och svensk dataresidens (Azure i Sweden Central, AWS i Stockholm).</li>
           </ul>
         </div>
       </div>
