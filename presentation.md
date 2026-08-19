@@ -53,15 +53,17 @@ Här är det exakta textinnehållet och layouten för dina PowerPoint / Google S
 * **Rubrik:** Månadskostnad: Azure vs AWS
 * **Kalkyl:**
   * **Microsoft Azure (Sweden Central):**
-    * App Service (S1) + Autoscaling: ~75 USD
-    * Azure SQL Serverless (1 vCore avg, 10 GB): ~83 USD
-    * Blob Storage (50 GB): ~2 USD
-    * **Totalt Azure:** **~160 USD / månad (ca 150 €)**
+    * App Service (S1) + Autoscaling: ~69 €
+    * Azure SQL Serverless (1 vCore avg, 10 GB): ~76 €
+    * Blob Storage (50 GB): ~1 €
+    * Data Transfer: ~4 €
+    * **Totalt Azure:** **~150 € / månad**
   * **Amazon Web Services (Stockholm Region):**
-    * Elastic Beanstalk (t3.medium + ALB): ~47 USD
-    * Aurora Serverless (1 ACU avg, 10 GB): ~28 USD
-    * S3 Storage (50 GB): ~3 USD
-    * **Totalt AWS:** **~80 USD / månad (ca 75 €)**
+    * Elastic Beanstalk (t3.medium + ALB): ~43 €
+    * Aurora Serverless (1 ACU avg, 10 GB): ~26 €
+    * S3 Storage (50 GB): ~1 €
+    * Data Transfer: ~8 €
+    * **Totalt AWS:** **~78 € / månad**
 
 ---
 

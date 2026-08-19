@@ -68,25 +68,25 @@ För att kunna jämföras och erbjuda en alternativ offert har vi identifierat e
 
 ---
 
-## 5. Kostnadskalkyl (Månadskostnad)
+## 5. Kostnadskalkyl (Månadskostnad i EUR)
 
-Följande kalkyler bygger på antagandet om **50 GB bildlagring**, **10 GB databaslagring**, samt att systemet skalar upp 3x under fredagens 4 timmar och körs på minimikraft (eller pausas) resterande tid.
+Följande kalkyler bygger på antagandet om **50 GB bildlagring**, **10 GB databaslagring**, samt att systemet skalar upp 3x under fredagens 4 timmar och körs på minimikraft (eller pausas) resterande tid. Alla kostnader är omräknade till **Euro (€)** för konsistens.
 
 ### A. Azure Pricing Calculator (Sweden Central)
-* **App Service (S1):** ~73.00 USD/månad (baserat på 730 timmar/månad för 1 instans).
-* **Autoscaling-tillägg (Fredagar):** ~2.00 USD/månad (2 extra instanser i 17.3 timmar per månad).
-* **Blob Storage (50 GB Hot + 100k API-anrop):** ~1.20 USD/månad.
-* **Azure SQL Database Serverless (10 GB lagring + genomsnitt 1 vCore under 200 aktiva timmar/månad):** ~83.00 USD/månad.
-* **Data Transfer (Outbound 100 GB):** ~4.00 USD/månad (första 100 GB är gratis i vissa zoner, estimerat lågt).
-* **Totalt Azure:** **~163.20 USD / månad (ca 150 €)**
+* **App Service (S1):** ~67 €/månad (baserat på 730 timmar/månad för 1 instans).
+* **Autoscaling-tillägg (Fredagar):** ~2 €/månad (2 extra instanser i 17.3 timmar per månad).
+* **Blob Storage (50 GB Hot + 100k API-anrop):** ~1 €/månad.
+* **Azure SQL Database Serverless (10 GB lagring + genomsnitt 1 vCore under 200 aktiva timmar/månad):** ~76 €/månad.
+* **Data Transfer (Outbound 100 GB):** ~4 €/månad.
+* **Totalt Azure:** **~150 € / månad**
 
 ### B. AWS Pricing Calculator (Stockholm Region)
-* **Elastic Beanstalk (t3.medium instans + ALB lastbalanserare):** ~47.00 USD/månad.
-* **AWS Auto Scaling (Fredagar - extra t3.medium):** ~1.50 USD/månad.
-* **Amazon S3 (50 GB Standard + GET/PUT anrop):** ~1.30 USD/månad.
-* **Amazon Aurora Serverless v2 (10 GB lagring + genomsnitt 1 ACU under 200 aktiva timmar/månad):** ~28.00 USD/månad.
-* **Data Transfer Out (100 GB):** ~8.00 USD/månad.
-* **Totalt AWS:** **~85.80 USD / månad (ca 80 €)**
+* **Elastic Beanstalk (t3.medium instans + ALB lastbalanserare):** ~43 €/månad.
+* **AWS Auto Scaling (Fredagar - extra t3.medium):** ~1 €/månad.
+* **Amazon S3 (50 GB Standard + GET/PUT anrop):** ~1 €/månad.
+* **Amazon Aurora Serverless v2 (10 GB lagring + genomsnitt 1 ACU under 200 aktiva timmar/månad):** ~26 €/månad.
+* **Data Transfer Out (100 GB):** ~7 €/månad.
+* **Totalt AWS:** **~78 € / månad**
 
 ---
 
@@ -96,7 +96,7 @@ Vi rekommenderar starkt att Smakbox AB väljer **Microsoft Azure** som molnlever
 
 ### Varför Azure?
 1. **Starkast GDPR-compliance på svensk mark:** Azure har etablerat fysiska datacenter i Gävle/Sandviken (**Sweden Central**), vilket gör att vi kan garantera att kunddata och fakturainformation aldrig lämnar landet. AWS har datacenter i Stockholm, men Microsofts avtal och svenska närvaro är historiskt starkare inom offentlig sektor och svenska företag gällande svensk dataresidens.
-2. **Överlägsen Serverless SQL-databas:** Azures inbyggda SQL Serverless är extremt moget och tillåter databasen att skala ner till absolut noll (paus) under inaktivitet. Detta gör det mycket enklare och billigare att hantera den specifika fredagsspiken jämfört med att sätta upp en komplex multi-AZ Aurora-databas i AWS.
+2. **Överlägsen Serverless SQL-databas:** Azures inbyggda SQL Serverless är extremt moget och tillåter databasen att skala ner till absolut noll (paus) under inaktivitet. Detta gör det mycket enklare och billigare att hantera den specifika fredagsspiken jämfört med att sätta upp en komplex databaslösning i AWS.
 3. **Komma-igång-faktor:** För ett mindre utvecklingsteam är Azure Portal mer intuitiv och sammanhållen för PaaS-tjänster (App Service) än AWS motsvarighet (Elastic Beanstalk), som ofta kräver djupare förståelse för nätverk (VPC, IAM-roller, EC2-detaljer).
 
 ---
@@ -106,8 +106,8 @@ Att välja PaaS-tjänster som App Service och Azure SQL innebär viktiga strateg
 
 1. **Vendor Lock-in (Leverantörsinlåsning):** Genom att bygga applikationen tätt kopplad till Azure App Service och Azure SQL Database gör vi det svårare att flytta till AWS eller Google Cloud i framtiden. SQL Server-specifika funktioner och Azure-portalsintegrationer är unika.
    * *Motivering av trade-off:* För Smakbox är det värt denna risk. De har inget eget IT-driftteam. Att spara 50 timmar arbetstid per år på att slippa patcha servrar och konfigurera databaskluster är värt risken att bli "inlåst" hos Microsoft.
-2. **Kostnad vs. Kontroll:** AWS är något billigare i kalkylen (~80 € vs ~150 €). Detta beror på att AWS Aurora Serverless v2 har en lägre startkostnad för små databaser och att EC2-resurser i Stockholm har en aggressivare prissättning.
-   * *Motivering av trade-off:* Skillnaden på 70 € per månad är försumbar för Smakbox eftersom båda ligger långt under budgeten på 500 €. Den extra kostnaden i Azure betalar för enkelheten i administrationen och den högre garantin av lokal dataresidens i Gävle.
+2. **Kostnad vs. Kontroll:** AWS är något billigare i kalkylen (~78 € vs ~150 €). Detta beror på att AWS Aurora Serverless v2 har en lägre startkostnad för små databaser och att EC2-resurser i Stockholm har en aggressivare prissättning.
+   * *Motivering av trade-off:* Skillnaden på 72 € per månad är försumbar för Smakbox eftersom båda ligger långt under budgeten på 500 €. Den extra kostnaden i Azure betalar för enkelheten i administrationen och den högre garantin av lokal dataresidens i Gävle.
 
 ---
 
