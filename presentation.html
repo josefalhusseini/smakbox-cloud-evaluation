@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Molnstrategi för Smakbox AB — Presentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #07030a;
+      --panel-dark: rgba(15, 10, 25, 0.6);
+      --border-color: rgba(255, 0, 85, 0.2);
+      --accent-pink: #ff0055;
+      --accent-blue: #00d2ff;
+      --accent-purple: #9d00ff;
+      --text-white: #ffffff;
+      --text-gray: #b0a8ba;
+      --font-display: 'Outfit', sans-serif;
+      --font-mono: 'Space Grotesk', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      font-family: var(--font-display);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      background-image: 
+        radial-gradient(circle at 80% 20%, rgba(255, 0, 85, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 20% 80%, rgba(0, 210, 255, 0.1) 0%, transparent 60%),
+        linear-gradient(135deg, #050208 0%, #0d0618 50%, #030106 100%);
+    }
+
+    .crt-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+      background-size: 100% 4px;
+      pointer-events: none;
+      z-index: 100;
+      opacity: 0.2;
+    }
+
+    .progress-bar-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      z-index: 99;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 16.66%;
+      background: linear-gradient(90deg, var(--accent-pink), var(--accent-blue));
+      transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      box-shadow: 0 0 10px rgba(255, 0, 85, 0.5);
+    }
+
+    .slides-viewport {
+      flex-grow: 1;
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .slide {
+      position: absolute;
+      width: 90%;
+      max-width: 1200px;
+      height: 80%;
+      max-height: 700px;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.95) translateY(20px);
+      transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 1;
+      padding: 3rem;
+      background: var(--panel-dark);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+      z-index: 10;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 4rem;
+      letter-spacing: -2px;
+      line-height: 0.95;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, var(--text-white) 30%, #a090b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .title-large {
+      font-size: 5rem;
+      line-height: 0.85;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 2.5rem;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      margin-bottom: 2rem;
+      border-left: 5px solid var(--accent-pink);
+      padding-left: 1rem;
+      color: var(--text-white);
+    }
+
+    .accent-text-pink {
+      color: var(--accent-pink);
+      -webkit-text-fill-color: initial;
+    }
+
+    .accent-text-blue {
+      color: var(--accent-blue);
+      -webkit-text-fill-color: initial;
+    }
+
+    p, li {
+      font-size: 1.25rem;
+      line-height: 1.6;
+      color: var(--text-gray);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .flex-col-gap {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: rgba(255, 0, 85, 0.4);
+      background: rgba(255, 0, 85, 0.02);
+      transform: translateY(-2px);
+    }
+
+    .card h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-white);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .card h3::before {
+      content: '▪';
+      color: var(--accent-pink);
+    }
+
+    .card p {
+      font-size: 1.05rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 1.1rem;
+    }
+
+    th {
+      font-family: var(--font-display);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      color: var(--accent-blue);
+      text-align: left;
+      padding: 1rem;
+      border-bottom: 2px solid rgba(0, 210, 255, 0.2);
+    }
+
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-gray);
+    }
+
+    tr:hover td {
+      color: var(--text-white);
+      background: rgba(255, 255, 255, 0.01);
+    }
+
+    .nav-bar {
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(5, 2, 10, 0.5);
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+      z-index: 10;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 1.5rem;
+      letter-spacing: -1px;
+      text-transform: uppercase;
+      font-style: italic;
+    }
+
+    .nav-logo span {
+      color: var(--accent-pink);
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-white);
+      padding: 0.8rem 1.5rem;
+      border-radius: 4px;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn:hover {
+      border-color: var(--accent-pink);
+      color: var(--accent-pink);
+      box-shadow: 0 0 15px rgba(255, 0, 85, 0.2);
+    }
+
+    .slide-indicator {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      color: var(--text-gray);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .price-box {
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .price-box-azure {
+      background: rgba(0, 114, 198, 0.05);
+      border: 1px solid rgba(0, 114, 198, 0.2);
+    }
+
+    .price-box-azure:hover {
+      border-color: #0072c6;
+      box-shadow: 0 0 20px rgba(0, 114, 198, 0.15);
+    }
+
+    .price-box-aws {
+      background: rgba(255, 153, 0, 0.05);
+      border: 1px solid rgba(255, 153, 0, 0.2);
+    }
+
+    .price-box-aws:hover {
+      border-color: #ff9900;
+      box-shadow: 0 0 20px rgba(255, 153, 0, 0.15);
+    }
+
+    .price-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .price-box-azure .price-title { color: #00d2ff; }
+    .price-box-aws .price-title { color: #ff9900; }
+
+    .price-value {
+      font-size: 3.5rem;
+      font-weight: 900;
+      font-family: var(--font-mono);
+      margin: 1rem 0;
+    }
+
+    .price-currency {
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--text-gray);
+    }
+
+    .price-items {
+      text-align: left;
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      color: var(--text-gray);
+    }
+
+    .price-items li {
+      font-size: 1.05rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .badge-sweden {
+      background: rgba(254, 204, 0, 0.15);
+      color: #fecc00;
+      border: 1px solid rgba(254, 204, 0, 0.3);
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
+
+    .guide-box {
+      border-left: 4px solid var(--accent-blue);
+      background: rgba(0, 210, 255, 0.02);
+      padding: 1.25rem;
+      border-radius: 0 8px 8px 0;
+      margin-top: 1.5rem;
+    }
+
+    .guide-box h4 {
+      font-size: 1.15rem;
+      margin-bottom: 0.3rem;
+      color: var(--text-white);
+    }
+
+    .guide-box p {
+      font-size: 1.05rem;
+      color: var(--text-gray);
+    }
+
+    .keyboard-tip {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .keyboard-key {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2, .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .slide {
+        padding: 1.5rem;
+        height: 90%;
+        max-height: initial;
+      }
+      h1 {
+        font-size: 2.5rem;
+      }
+      h2 {
+        font-size: 1.8rem;
+      }
+      p, li {
+        font-size: 1.05rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="progress-bar-container">
+    <div class="progress-bar" id="progress"></div>
+  </div>
+
+  <div class="slides-viewport">
+    
+    <div class="slide active" id="slide-1">
+      <div style="margin-bottom: 1rem;">
+        <span class="badge-sweden" style="background: rgba(255, 0, 85, 0.1); color: var(--accent-pink); border-color: rgba(255, 0, 85, 0.2);">Strategisk Analys</span>
+      </div>
+      <h1 class="title-large">MOLNSTRATEGI<br>FÖR SMAKBOX <span class="accent-text-pink">AB</span></h1>
+      <p style="font-size: 1.6rem; margin-top: 1.5rem; color: var(--text-white); font-weight: 300;">
+        Etablering av kundportal: En utvärdering av Microsoft Azure & AWS
+      </p>
+      <div style="margin-top: 4rem; display: flex; gap: 3rem;">
+        <div>
+          <div style="font-size: 0.9rem; text-transform: uppercase; color: rgba(255,255,255,0.4); font-family: var(--font-mono);">Konsult</div>
+          <div style="font-size: 1.25rem; font-weight: 600;">Josef Alhusseini</div>
+        </div>
+        <div>
+          <div style="font-size: 0.9rem; text-transform: uppercase; color: rgba(255,255,255,0.4); font-family: var(--font-mono);">Kurs</div>
+          <div style="font-size: 1.25rem; font-weight: 600;">Molnarkitektur & Infrastruktur</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" id="slide-2">
+      <h2>Målet och Utmaningarna</h2>
+      <div class="grid-2">
+        <div class="flex-col-gap">
+          <p>
+            Smakbox AB behöver en robust kundportal för sina 200 företagskunder. Kraven ställer höga krav på intelligent infrastruktur.
+          </p>
+          <div class="card">
+            <h3>Fredagstoppen (Kl. 10 - 14)</h3>
+            <p>Hårdaste trafiken sker under ett fåtal timmar på fredagen. Systemet måste skala ut per automatik och ta ner resurser efteråt.</p>
+          </div>
+          <div class="card">
+            <h3>GDPR & Dataresidens</h3>
+            <p>All kund- och orderdata måste stanna inom EU-gränser. Helst på svensk mark för lägsta latens och trygghet.</p>
+          </div>
+        </div>
+        <div class="flex-col-gap">
+          <div class="card">
+            <h3>Minimal Drift (PaaS)</h3>
+            <p>Inget eget ansvar för att patcha operativsystem, installera webbservrar eller konfigurera databaskluster.</p>
+          </div>
+          <div class="card">
+            <h3>Filer & Media (50 GB)</h3>
+            <p>Receptbilder (JPEG) och recepthäften (PDF) som kräver snabb och billig fillagring för slutanvändare.</p>
+          </div>
+          <div class="card" style="border-color: rgba(0, 210, 255, 0.3);">
+            <h3>Budget: Max 500 € / månad</h3>
+            <p>Driftskostnaderna måste hållas nere och optimeras utifrån faktisk användning.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" id="slide-3">
+      <h2>Föreslagen Azure-arkitektur</h2>
+      <p style="margin-top: -1rem; margin-bottom: 2rem;">Samtliga tjänster driftsätts i regionen <strong class="accent-text-blue">Sweden Central</strong> (Gävle/Sandviken).</p>
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem;">
+        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="color: var(--accent-pink); font-family: var(--font-mono); font-size: 0.9rem; margin-bottom: 0.5rem;">WEB APPLICATIONS</div>
+            <h3>App Service</h3>
+            <div class="badge-sweden" style="background: rgba(0, 114, 198, 0.1); color: #00d2ff; border-color: rgba(0, 114, 198, 0.3);">Standard S1 Plan</div>
+            <p style="margin-top: 1rem; font-size: 1rem;">Möjliggör <strong>Auto-scaling</strong>. Skalar ut till 3 instanser automatiskt under fredagstopparna. Skalar ner till 1 instans på kvällen.</p>
+          </div>
+        </div>
+
+        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="color: var(--accent-pink); font-family: var(--font-mono); font-size: 0.9rem; margin-bottom: 0.5rem;">STORAGE & CDN</div>
+            <h3>Blob Storage</h3>
+            <div class="badge-sweden" style="background: rgba(0, 114, 198, 0.1); color: #00d2ff; border-color: rgba(0, 114, 198, 0.3);">Standard Hot, LRS</div>
+            <p style="margin-top: 1rem; font-size: 1rem;">Lagrar 50 GB PDF-häften och JPEG-receptbilder. Locally Redundant Storage (LRS) är billigast och helt tillräckligt.</p>
+          </div>
+        </div>
+
+        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="color: var(--accent-pink); font-family: var(--font-mono); font-size: 0.9rem; margin-bottom: 0.5rem;">RELATIONAL DATABASE</div>
+            <h3>Azure SQL Database</h3>
+            <div class="badge-sweden" style="background: rgba(0, 114, 198, 0.1); color: #00d2ff; border-color: rgba(0, 114, 198, 0.3);">Serverless vCore</div>
+            <p style="margin-top: 1rem; font-size: 1rem;">Hanterar transaktioner. Skalar vCores (0.5–4 vCores) steglöst vid fredagstoppen. Pausar automatiskt under inaktiva timmar.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-box">
+        <h4>Skalbarhetsmekanism:</h4>
+        <p>Autoskalning styrs via inbyggda CPU-mätare (Web) och serverlös resursallokering (DB) helt utan mänsklig inblandning eller driftsavbrott.</p>
+      </div>
+    </div>
+
+    <div class="slide" id="slide-4">
+      <h2>AWS Motsvarigheter</h2>
+      <p style="margin-top: -1rem; margin-bottom: 1.5rem;">Om Smakbox väljer AWS kan samma lösning etableras i regionen <strong style="color: #ff9900;">eu-north-1 (Stockholm)</strong>:</p>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Resurs / Roll</th>
+            <th>Microsoft Azure</th>
+            <th>Amazon Web Services (AWS)</th>
+            <th>Teknisk Kommentar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Webbapplikation</strong></td>
+            <td>App Service (Standard S1)</td>
+            <td>AWS Elastic Beanstalk (eller App Runner)</td>
+            <td>Driftsätter källkod direkt som PaaS. Handhar lastbalansering.</td>
+          </tr>
+          <tr>
+            <td><strong>Objektslagring</strong></td>
+            <td>Blob Storage (Hot LRS)</td>
+            <td>Amazon S3 Standard</td>
+            <td>Högpresterande filserverlösning. Likvärdig prestanda och pris.</td>
+          </tr>
+          <tr>
+            <td><strong>Relationsdatabas</strong></td>
+            <td>Azure SQL (Serverless)</td>
+            <td>Amazon Aurora Serverless v2</td>
+            <td>Serverlös databasmotor som skalar resurserna dynamiskt.</td>
+          </tr>
+          <tr>
+            <td><strong>Automatisk Skalning</strong></td>
+            <td>Azure Autoscale</td>
+            <td>AWS Auto Scaling</td>
+            <td>Skalar instanser baserat på tröskelvärden för CPU/minne.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="slide" id="slide-5">
+      <h2>Månadskostnad</h2>
+      <p style="margin-top: -1rem; margin-bottom: 2rem;">Båda plattformarna ligger långt under Smakbox budgetgräns på 500 € / månad.</p>
+      
+      <div class="pricing-grid">
+        <div class="price-box price-box-azure">
+          <div class="price-title">Microsoft Azure</div>
+          <div class="badge-sweden" style="background: rgba(0, 114, 198, 0.1); color: #00d2ff; border-color: rgba(0, 114, 198, 0.3);">Sweden Central</div>
+          <div class="price-value">~160 <span class="price-currency">USD</span></div>
+          <div style="color: #00d2ff; font-weight: 600; margin-bottom: 1rem;">~150 € per månad</div>
+          <ul class="price-items">
+            <li><strong>App Service Standard (S1):</strong> ~73 USD</li>
+            <li><strong>Autoscale vCore DB (Serverless):</strong> ~83 USD</li>
+            <li><strong>Blob Storage (50 GB):</strong> ~1.20 USD</li>
+            <li><strong>Data Transfer Out:</strong> ~3.00 USD</li>
+          </ul>
+        </div>
+
+        <div class="price-box price-box-aws">
+          <div class="price-title">Amazon Web Services</div>
+          <div class="badge-sweden" style="background: rgba(255, 153, 0, 0.1); color: #ff9900; border-color: rgba(255, 153, 0, 0.3);">Stockholm Region</div>
+          <div class="price-value">~80 <span class="price-currency">USD</span></div>
+          <div style="color: #ff9900; font-weight: 600; margin-bottom: 1rem;">~75 € per månad</div>
+          <ul class="price-items">
+            <li><strong>Elastic Beanstalk (t3.medium + ALB):</strong> ~47 USD</li>
+            <li><strong>Aurora Serverless v2 DB:</strong> ~28 USD</li>
+            <li><strong>Amazon S3 Storage (50 GB):</strong> ~1.30 USD</li>
+            <li><strong>Data Transfer Out:</strong> ~4.00 USD</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" id="slide-6">
+      <h2>Vår Rekommendation: Microsoft Azure</h2>
+      <div class="grid-2">
+        <div class="flex-col-gap">
+          <div class="card" style="border-color: rgba(0, 210, 255, 0.3); background: rgba(0, 210, 255, 0.01);">
+            <h3>1. Svensk Dataresidens (Sweden Central)</h3>
+            <p>Fysiskt placerat i Gävle/Sandviken. Starkare garantier för lokal lagring i Sverige, vilket ger Smakbox och dess kunder välbehövlig trygghet inför GDPR.</p>
+          </div>
+          <div class="card">
+            <h3>2. Databasskalning</h3>
+            <p>Azure SQL Serverless inbyggda auto-pausfunktion minimerar kostnader på ett sätt som är krångligare att replikera i AWS Aurora.</p>
+          </div>
+        </div>
+        <div class="flex-col-gap">
+          <div class="card">
+            <h3>3. Enkelhet och Administration</h3>
+            <p>För ett mindre utvecklingsteam utan dedikerade nätverks- och molnarkitekter är Azure mer lättöverskådligt och ger snabbare "time-to-market".</p>
+          </div>
+          <div class="card" style="border-color: rgba(255, 0, 85, 0.3);">
+            <h3>Trade-off: Vendor Lock-in</h3>
+            <p>Genom att använda fullt hanterade PaaS-tjänster sparar Smakbox hundratals timmar i serverdrift, men bygger in sig i Azures ekosystem. <strong>Denna trade-off bedöms som starkt lönsam för Smakbox affärsmodell.</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="nav-bar">
+    <div class="nav-logo">SMAKBOX <span>CLOUD</span></div>
+    
+    <div class="nav-buttons">
+      <div class="keyboard-tip">
+        Använd <span class="keyboard-key">←</span> och <span class="keyboard-key">→</span> på tangentbordet
+      </div>
+      <button class="btn" id="prev-btn">Föregående</button>
+      <div class="slide-indicator" id="indicator">Slide 1 av 6</div>
+      <button class="btn" id="next-btn" style="border-color: var(--accent-pink); color: var(--accent-pink);">Nästa</button>
+    </div>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const indicator = document.getElementById('indicator');
+    const progressBar = document.getElementById('progress');
+    
+    let currentSlideIndex = 0;
+
+    function updateSlides() {
+      slides.forEach((slide, idx) => {
+        if (idx === currentSlideIndex) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+
+      indicator.textContent = `Slide ${currentSlideIndex + 1} av ${slides.length}`;
+      
+      const progressPercent = ((currentSlideIndex + 1) / slides.length) * 100;
+      progressBar.style.width = `${progressPercent}%`;
+
+      prevBtn.disabled = currentSlideIndex === 0;
+      nextBtn.disabled = currentSlideIndex === slides.length - 1;
+      
+      prevBtn.style.opacity = currentSlideIndex === 0 ? '0.4' : '1';
+      nextBtn.style.opacity = currentSlideIndex === slides.length - 1 ? '0.4' : '1';
+    }
+
+    function nextSlide() {
+      if (currentSlideIndex < slides.length - 1) {
+        currentSlideIndex++;
+        updateSlides();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlideIndex > 0) {
+        currentSlideIndex--;
+        updateSlides();
+      }
+    }
+
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      }
+    });
+
+    updateSlides();
+  </script>
+</body>
+</html>
