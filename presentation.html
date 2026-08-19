@@ -197,17 +197,6 @@
       margin-top: auto;
     }
 
-    .slide-footer-left {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .slide-footer-right {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
     .btn {
       background: var(--bg-color);
       border: 1px solid var(--border-color);
@@ -227,9 +216,84 @@
       font-size: 0.85rem;
       color: var(--text-muted);
     }
+
+    /* Image gallery layout for screenshots */
+    .img-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .screenshot-card {
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background: #ffffff;
+      padding: 0.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .screenshot-card img {
+      width: 100%;
+      height: 130px;
+      object-fit: contain;
+      border-radius: 4px;
+      cursor: pointer;
+      border: 1px solid #eeeeee;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .screenshot-card img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 4px 12px rgba(0,102,204,0.2);
+    }
+
+    .screenshot-card .caption {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-top: 0.4rem;
+      text-align: center;
+    }
+
+    .screenshot-card .subcaption {
+      font-size: 0.75rem;
+      color: var(--accent-blue);
+      font-weight: 700;
+    }
+
+    /* Fullscreen Modal Image Zoom */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .modal-overlay img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 6px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
   </style>
 </head>
 <body>
+
+  <!-- FULLSCREEN IMAGE ZOOM MODAL -->
+  <div class="modal-overlay" id="img-modal" onclick="closeModal()">
+    <img id="modal-img" src="" alt="Zoomed Screenshot">
+  </div>
 
   <!-- SLIDES VIEWPORT -->
   <div class="slides-viewport">
@@ -251,49 +315,49 @@
       <div class="grid-2">
         <div>
           <ul>
-            <li><strong>Hög belastning på fredagar (10:00–14:00):</strong> Kunderna lägger alla veckobeställningar under ett fåtal timmar. Systemet måste kunna skala upp automatiskt.</li>
+            <li><strong>Hög belastning på fredagar (10:00–14:00):</strong> Kunderna lägger alla veckobeställningar samtidigt. Systemet måste kunna skala upp automatiskt.</li>
             <li><strong>Minimalt driftsansvar:</strong> Företaget saknar ett eget driftteam. Molnleverantören måste ansvara för operativsystem och serverunderhåll (PaaS-fokus).</li>
           </ul>
         </div>
         <div>
           <ul>
             <li><strong>GDPR & Lagring:</strong> 50 GB lagring för receptbilder (JPEG) och recepthäften (PDF). All data måste sparas inom EU (helst Sverige).</li>
-            <li><strong>Budget:</strong> Driftskostnaderna får uppgå till maximalt 500 € per månad.</li>
+            <li><strong>Budget:</strong> Max 500 € / månad (ca 5 800 SEK).</li>
           </ul>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 3: AZURE ARKITEKTUR -->
+    <!-- SLIDE 3: UTVÄRDERAD AZURE-ARKITEKTUR -->
     <div class="slide" id="slide-3">
-      <h2>Rekommenderad Arkitektur i Azure</h2>
+      <h2>Arkitektur i Microsoft Azure</h2>
       <div class="grid-2">
         <div>
           <ul>
-            <li><strong>Webbportal: App Service (Standard S1)</strong>
+            <li><strong>Webbportal: App Service (Standard S1, Linux)</strong>
               <ul>
-                <li>Hanterar driftsmiljön (PaaS) utan serverunderhåll.</li>
-                <li>Auto-scaling: Skalar ut till max 3 instanser under fredagstoppen.</li>
+                <li>Hanterar driftsmiljön utan serverunderhåll.</li>
+                <li>Autoskalning: 1 instans normalt, skalar till 3 på fredagar.</li>
               </ul>
             </li>
-            <li><strong>Fillagring: Blob Storage (Standard Hot, LRS)</strong>
+            <li><strong>Fillagring: Blob Storage (Hot Tier, ZRS)</strong>
               <ul>
-                <li>Kostnadsoptimerad lagring av receptbilder och PDF-filer.</li>
+                <li>50 GB receptbilder och PDF-häften med zon-redundans.</li>
               </ul>
             </li>
           </ul>
         </div>
         <div>
           <ul>
-            <li><strong>Databas: Azure SQL Database (Serverless vCore)</strong>
+            <li><strong>Databas: Azure SQL Database (Serverless Gen5)</strong>
               <ul>
-                <li>Skalar processorkraft (0.5–4 vCores) steglöst utifrån belastning.</li>
-                <li>Auto-pause: Pausas automatiskt under nätter/helger för att spara pengar.</li>
+                <li>Skalar datorkraft (0,5–2 vCores) utifrån belastning.</li>
+                <li>Auto-pause aktiverat vid inaktivitet.</li>
               </ul>
             </li>
             <li><strong>Region: Sweden Central (Gävle/Sandviken)</strong>
               <ul>
-                <li>All lagring sker på svensk mark, vilket uppfyller GDPR.</li>
+                <li>100% dataresidens på svensk mark.</li>
               </ul>
             </li>
           </ul>
@@ -304,7 +368,7 @@
     <!-- SLIDE 4: AWS MOTSVARIGHETER -->
     <div class="slide" id="slide-4">
       <h2>Motsvarande Tjänster i AWS</h2>
-      <p style="margin-bottom: 1rem; color: var(--text-muted);">Motsvarande uppsättning kan driftsättas i AWS-regionen eu-north-1 (Stockholm):</p>
+      <p style="margin-bottom: 1rem; color: var(--text-muted);">Motsvarande uppsättning driftsatt i AWS-regionen eu-north-1 (Stockholm):</p>
       
       <table>
         <thead>
@@ -318,22 +382,22 @@
           <tr>
             <td><strong>Webbapplikation (PaaS)</strong></td>
             <td>App Service (Standard S1)</td>
-            <td>AWS Elastic Beanstalk (eller App Runner)</td>
+            <td>AWS Elastic Beanstalk + EC2 (t3.small) + ALB</td>
           </tr>
           <tr>
             <td><strong>Relationell Databas</strong></td>
-            <td>Azure SQL (Serverless vCore)</td>
-            <td>Amazon Aurora Serverless v2</td>
+            <td>Azure SQL (Serverless 0.5–2 vCores)</td>
+            <td>Amazon RDS for PostgreSQL (db.t4g.medium)</td>
           </tr>
           <tr>
             <td><strong>Objektslagring (Media)</strong></td>
-            <td>Blob Storage (Standard Hot LRS)</td>
-            <td>Amazon S3 Standard</td>
+            <td>Blob Storage (Hot ZRS)</td>
+            <td>Amazon S3 Standard (50 GB)</td>
           </tr>
           <tr>
             <td><strong>Automatisk skalning</strong></td>
-            <td>Azure Autoscale</td>
-            <td>AWS Auto Scaling</td>
+            <td>App Service Autoscale</td>
+            <td>EC2 Auto Scaling + ALB</td>
           </tr>
         </tbody>
       </table>
@@ -345,47 +409,127 @@
       <div class="cost-grid">
         <div class="cost-column">
           <div class="cost-title">Microsoft Azure (Sweden Central)</div>
-          <div class="cost-value">~150 €</div>
+          <div class="cost-value">~170,62 €</div>
           <ul class="cost-list">
-            <li><span>App Service (S1) + Skalning:</span> <span>~69 €</span></li>
-            <li><span>Azure SQL Serverless DB:</span> <span>~76 €</span></li>
-            <li><span>Blob Storage (50 GB):</span> <span>~1 €</span></li>
-            <li><span>Dataöverföring:</span> <span>~4 €</span></li>
+            <li><span>App Service (S1) 1 instans:</span> <span>60,93 €</span></li>
+            <li><span>Azure SQL Serverless DB:</span> <span>105,86 €</span></li>
+            <li><span>Blob Storage Hot ZRS (50 GB):</span> <span>1,16 €</span></li>
+            <li><span>Fredagsskalning (2 extra instanser):</span> <span>2,67 €</span></li>
+            <li><span>Totalt per månad:</span> <span><strong>170,62 €</strong></span></li>
           </ul>
         </div>
 
         <div class="cost-column">
           <div class="cost-title">AWS (Stockholm Region)</div>
-          <div class="cost-value">~78 €</div>
+          <div class="cost-value">~75,80 €</div>
           <ul class="cost-list">
-            <li><span>Elastic Beanstalk (t3.medium + ALB):</span> <span>~43 €</span></li>
-            <li><span>Aurora Serverless v2 DB:</span> <span>~26 €</span></li>
-            <li><span>Amazon S3 lagring:</span> <span>~1 €</span></li>
-            <li><span>Dataöverföring:</span> <span><span>~8 €</span></span></li>
+            <li><span>Elastic Beanstalk + EC2 (t3.small) + ALB:</span> <span>30,53 € ($35,43)</span></li>
+            <li><span>RDS for PostgreSQL (db.t4g.medium):</span> <span>44,20 € ($51,29)</span></li>
+            <li><span>Amazon S3 lagring (50 GB):</span> <span>1,07 € ($1,24)</span></li>
+            <li><span>Totalt per månad:</span> <span><strong>ca 75,80 € ($87,96)</strong></span></li>
           </ul>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 6: SLUTSATS & REKOMMENDATION -->
+    <!-- SLIDE 6: SKÄRMDUMPAR - AZURE PRICING CALCULATOR -->
     <div class="slide" id="slide-6">
+      <h2>Skärmdumpar: Azure Pricing Calculator</h2>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Klicka på en bild för att förstora:</p>
+      <div class="img-gallery">
+        <div class="screenshot-card">
+          <img src="./screenshots/azure_app_service.png" alt="Azure App Service" onclick="openModal(this.src)">
+          <div class="caption">Azure App Service (Standard S1)</div>
+          <div class="subcaption">60,93 € / månad</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="./screenshots/azure_sql.png" alt="Azure SQL Database" onclick="openModal(this.src)">
+          <div class="caption">Azure SQL Serverless (0.5–2 vCores)</div>
+          <div class="subcaption">105,86 € / månad</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="./screenshots/azure_blob_storage.png" alt="Azure Blob Storage" onclick="openModal(this.src)">
+          <div class="caption">Azure Blob Storage (Hot ZRS, 50 GB)</div>
+          <div class="subcaption">1,16 € / månad</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: SKÄRMDUMPAR - AWS PRICING CALCULATOR -->
+    <div class="slide" id="slide-7">
+      <h2>Skärmdumpar: AWS Pricing Calculator</h2>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Klicka på en bild för att förstora:</p>
+      <div class="img-gallery" style="grid-template-columns: repeat(4, 1fr);">
+        <div class="screenshot-card">
+          <img src="./screenshots/aws_ec2.png" alt="AWS EC2" onclick="openModal(this.src)">
+          <div class="caption">AWS EC2 (t3.small, Weekly Spike)</div>
+          <div class="subcaption">$17,40 / månad</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="./screenshots/aws_alb.png" alt="AWS ALB" onclick="openModal(this.src)">
+          <div class="caption">AWS Load Balancer (ALB)</div>
+          <div class="subcaption">$18,03 / månad</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="./screenshots/aws_rds.png" alt="AWS RDS PostgreSQL" onclick="openModal(this.src)">
+          <div class="caption">AWS RDS (db.t4g.medium)</div>
+          <div class="subcaption">$51,29 / månad</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="./screenshots/aws_s3.png" alt="AWS S3" onclick="openModal(this.src)">
+          <div class="caption">Amazon S3 (50 GB)</div>
+          <div class="subcaption">$1,24 / månad</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: SLUTSATS & REKOMMENDATION -->
+    <div class="slide" id="slide-8">
       <h2>Slutsats & Rekommendation</h2>
       <div class="grid-2">
         <div>
           <ul>
-            <li><strong>Val: Microsoft Azure</strong></li>
-            <li><strong>GDPR & Dataresidens:</strong> Datacentret i Gävle ger starkare garantier för lokal lagring i Sverige jämfört med AWS.</li>
-            <li><strong>Kostnadskontroll:</strong> Azure SQL Serverless kan pausa till 0 vCore, vilket matchar Smakbox helgstopp bättre än AWS Aurora.</li>
+            <li><strong>Huvudrekommendation: Microsoft Azure (~170,62 €/mån)</strong></li>
+            <li><strong>Minimalt underhåll:</strong> Ren PaaS & Serverless utan behov av eget IT-driftteam eller nätverkskonfiguration.</li>
+            <li><strong>Väl inom budget:</strong> 170 € är bara en tredjedel av budgeten på 500 €/månad. Tidsvinsten i utveckling överväger merpriset.</li>
+            <li><strong>Serverless Auto-pause:</strong> Pausas till 0 kr på helger/nätter + 100% svensk dataresidens i Gävle.</li>
           </ul>
         </div>
         <div>
           <ul>
-            <li><strong>Strategisk Trade-off:</strong>
+            <li><strong>Alternativt spår: AWS (~75,80 €/mån)</strong>
               <ul>
-                <li>Genom att välja PaaS sparar Smakbox tid och slipper driftsansvar för servermiljön.</li>
-                <li>Nackdelen är en högre timkostnad och en viss *vendor lock-in* hos Microsoft. Detta bedöms dock vara ekonomiskt lönsamt för bolaget.</li>
+                <li>Om Smakbox prioriterar <strong>lägsta månadskostnad</strong> är AWS ett starkt alternativ, men kräver mer infrastrukturkonfiguration (ALB/VPC).</li>
               </ul>
             </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: BIDRAGSDOKUMENTATION -->
+    <div class="slide" id="slide-9">
+      <h2>Bidragsdokumentation (Arbetsfördelning)</h2>
+      <div class="grid-2">
+        <div>
+          <ul>
+            <li><strong>Kevin Hermansson (Kalkyl- & Rapportansvarig):</strong>
+              <ul>
+                <li>Beräkningar i Azure & AWS Pricing Calculator samt underlag och alla 7 skärmdumpar.</li>
+                <li>Författare och sammanställt den skriftliga rapporten (`rapport.md`).</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li><strong>Josef Alhusseini (Presentations- & Redovisningsansvarig):</strong>
+              <ul>
+                <li>Utformat och byggt interaktiva presentationsslides (`presentation.html`).</li>
+                <li>Ansvarar för den muntliga redovisningen samt fördjupad research av skalbarhet och funktioner.</li>
+              </ul>
+            </li>
+            <li><strong>Gemensamt:</strong> Utvärdering av trade-offs och beslut om rekommendation.</li>
           </ul>
         </div>
       </div>
@@ -396,7 +540,7 @@
       <div class="slide-footer-left"></div>
       <div class="slide-footer-right">
         <button class="btn" id="prev-btn">Föregående</button>
-        <span class="page-number" id="page-num">Sida 1 av 6</span>
+        <span class="page-number" id="page-num">Sida 1 av 9</span>
         <button class="btn" id="next-btn">Nästa</button>
       </div>
     </div>
@@ -459,6 +603,15 @@
         prevSlide();
       }
     });
+
+    function openModal(src) {
+      document.getElementById('modal-img').src = src;
+      document.getElementById('img-modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('img-modal').style.display = 'none';
+    }
 
     updateSlides();
   </script>
