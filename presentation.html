@@ -35,7 +35,8 @@
     .slides-viewport {
       width: 100%;
       max-width: 960px;
-      height: 540px; /* 16:9 Aspect Ratio */
+      min-height: 540px;
+      height: auto;
       position: relative;
       background: var(--bg-color);
       border: 1px solid var(--border-color);
@@ -43,7 +44,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 3rem 4rem;
+      padding: 2.5rem 3.5rem 1.5rem 3.5rem;
     }
 
     .slide {
@@ -51,6 +52,7 @@
       display: none;
       flex-direction: column;
       justify-content: flex-start;
+      margin-bottom: 2rem;
     }
 
     .slide.active {
@@ -61,6 +63,7 @@
     .slide-title-layout {
       justify-content: center;
       height: 100%;
+      margin-bottom: 0;
     }
 
     h1 {
@@ -103,13 +106,13 @@
     /* Bullet point layouts */
     ul {
       margin-left: 2rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
     }
 
     li {
-      font-size: 1.15rem;
-      line-height: 1.6;
-      margin-bottom: 0.75rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
       color: var(--text-main);
     }
 
